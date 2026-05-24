@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *link;
+};
+struct node *start = NULL;
+
+int main()
+{
+    struct node *ptr, *nn;
+    int ch, item;
+
+    while (1)
+    {
+        printf("\nMAIN MENU\n1.Push\n2.Pop\n3.Show\n4.Exit\nEnter your Choice: ");
+        scanf("%d", &ch);
+
+        switch (ch)
+        {
+        case 1:
+            // push
+            nn = (struct node *)malloc(sizeof(struct node));
+            if (nn == NULL)
+            {
+                printf("\nMemory allocation failed!\n");
+                break;
+            }
+            printf("\nEnter the item: ");
+            scanf("%d", &item);
+            nn->data = item;
+            nn->link = start;
+            start = nn;
+            break;
+
+        case 2:
+            // pop
+            if (start == NULL)
+            {
+                printf("\nStack is empty! Underflow condition.\n");
+            }
+            else
+            {
+                ptr = start;
+                printf("\nITEM POPPED = %d\n", ptr->data);
+                start = start->link;
+                free(ptr);
+            }
+            break;
+
+        case 3:
+            // show
+            if (start == NULL)
+            {
+                printf("\nStack is empty!\n");
+            }
+            else
+            {
+                ptr = start;
+                printf("\nStack Elements:\n");
+                while (ptr != NULL)
+                {
+                    printf("%d\n", ptr->data);
+                    ptr = ptr->link;
+                }
+            }
+            break;
+
+        case 4:
+            // exit
+            exit(0);
+
+        default:
+            printf("\nInvalid operation! Please enter a valid choice.\n");
+        }
+    }
+    return 0;
+}
